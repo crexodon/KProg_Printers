@@ -9,6 +9,5 @@ Server: onlinewebfonts.com
 https://www.onlinewebfonts.com/icon/365411
 Users: simpleicon.com
 http://simpleicon.com/dev/multy-user.html
-Object/Dukument: onlinewebfonts.com
+Object/Dokument: onlinewebfonts.com
 https://www.onlinewebfonts.com/icon/99774
-alles sucked
