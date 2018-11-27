@@ -102,7 +102,12 @@ public class ProcessStation extends Station {
 		
 		//maybe we have more than one incoming queue -> get all incoming queues
 		for (SynchronizedQueue inQueue : this.inComingQueues) {
-							
+
+			/** Catches the waiting line for the applying Station */
+			if (inQueue.size() > measurement.inQueuePeek) {
+				measurement.inQueuePeek = inQueue.size();
+			}
+			
 			//We have to make a decision which queue we choose -> your turn 
 			//I'll take the first possible I get
 			if(inQueue.size() > 0){
@@ -202,6 +207,8 @@ public class ProcessStation extends Station {
 		/** the number of all objects that visited this station*/ 
 		private int numbOfVisitedObjects = 0;
 		
+		/** Value for the highest number of objects inside the stations inQueue  */
+		private int inQueuePeek = 0;
 		
 		/**Get the average time for treatment
 		 * 
@@ -228,7 +235,7 @@ public class ProcessStation extends Station {
 		theString = theString + "\nAnzahl der behandelten Objekte: " + measurement.numbOfVisitedObjects;
 		theString = theString + "\nZeit zum Behandeln aller Objekte: " + measurement.inUseTime;
 		theString = theString + "\nDurchnittliche Behandlungsdauer: " + measurement.avgTreatmentTime();
-		
+		theString = theString + "\nErfuhr einen Peek von: " + measurement.inQueuePeek;
 		Statistics.show(theString);
 		
 	}
