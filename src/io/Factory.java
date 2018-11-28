@@ -120,7 +120,7 @@ public class Factory {
      }
 	
 	/**
-     * create some objects out of the XML file
+     * create the objects determined within the XML file
      * 
      */
      private static void createObjects(){
@@ -183,7 +183,7 @@ public class Factory {
     }
     
     /**
-     * create some process stations out of the XML file
+     * create the process Stations determined within the XML file
      * 
      */
      private static void createProcessStations(){

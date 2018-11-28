@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import model.Actor;
 
 /**
- * The main class, controls the flow of the simulation
+ * The main class it controls the flow of the simulation
  * 
  * @author Jaeger, Schmidt
  * @version 2016-07-07
@@ -53,7 +53,9 @@ public class Simulation {
 		//the view of our simulation
 		new SimulationView();
 					
-		// set up the the heartbeat (clock) of the simulation
+		// Why start() not run()?
+		// start() causes the execution of the Method while Java calls the run() method of the Thread
+		// With this way there will be two Threads running concurrently
 		new HeartBeat().start();
 		 		
 		Statistics.show("---- Simulation gestartet ---\n");
@@ -63,26 +65,6 @@ public class Simulation {
 			actor.start();		
 						
 		}
-		
-		/*
-		 * Hinweis: wenn nicht �ber den Startbutton gestartet werden soll oder die Simulation ohne View laufen soll,
-		 * den auskommentierten Code unten verwenden 
-		 */
-				
-		/*
-		//Zeitpuffer vor Start -> sonst l�uft der letzte manchmal nicht los
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			
-			e.printStackTrace();
-		}
-		
-		//wake up the start station -> lets the simulation run
-		StartStation.getStartStation().wakeUp();
-		
-		*/
-		
 	}
 			
 	
