@@ -64,15 +64,15 @@ public class ProcessStation extends Station {
 		
 	}
 	
-	
+	/** determines the numberOfInQueueObjects and returns it*/
 	@Override
 	protected int numberOfInQueueObjects(){
-		
+		// variable the will be returned
 		int theNumber = 0;
 		
 		//We have more than one incoming queue -> get all incoming queues
 		for (SynchronizedQueue inQueue : this.inComingQueues) {
-						
+			// determination of the objects inside the Queue
 			theNumber = theNumber + inQueue.size();
 		}
 		
@@ -80,15 +80,15 @@ public class ProcessStation extends Station {
 		
 	}
 	
-	
+	/** determines the numberOfInQueueObjects and returns it*/
 	@Override
 	protected int numberOfOutQueueObjects() {
-		
+		// variable that will be returned
 		int theNumber = 0;
 		
 		//maybe we have more than one outgoing queue -> get all outgoing queues
 		for (SynchronizedQueue outQueue : this.outGoingQueues) {
-						
+			// determination of the objects inside the Queue			
 			theNumber = theNumber + outQueue.size();
 		}
 		
@@ -96,20 +96,19 @@ public class ProcessStation extends Station {
 	
 	}
 	
-	
+	/** Gets the next Object inside the Queue */
 	@Override
 	protected TheObject getNextInQueueObject(){
 		
 		//maybe we have more than one incoming queue -> get all incoming queues
 		for (SynchronizedQueue inQueue : this.inComingQueues) {
 
-			/** Catches the waiting line for the applying Station */
+			/// Checks the size of the Queue and remembers its highest value
 			if (inQueue.size() > measurement.inQueuePeek) {
 				measurement.inQueuePeek = inQueue.size();
 			}
 			
-			//We have to make a decision which queue we choose -> your turn 
-			//I'll take the first possible I get
+			//returns the first Object
 			if(inQueue.size() > 0){
 				return (TheObject) inQueue.poll();
 			}
@@ -119,14 +118,14 @@ public class ProcessStation extends Station {
 		return null;
 	}
 	
+	/** Gets the next Object inside the Queue */
 	@Override
 	protected TheObject getNextOutQueueObject() {
 		
 		//maybe we have more than one outgoing queue -> get all outgoing queues
 		for (SynchronizedQueue outQueue : this.outGoingQueues) {
 									
-		//We have to make a decision which queue we choose -> your turn 
-		//I'll take the first possible I get
+		//returns the first Object 
 			if(outQueue.size() > 0){
 				return (TheObject) outQueue.poll();
 			}
@@ -137,13 +136,17 @@ public class ProcessStation extends Station {
 		
 	}
 	
-	
+	/** Determines the time the given Object needs to be handled.
+	 * Pushes the Object to the outQueue when handled given time amount.
+	 * @param theObject object to be handled
+	 */
 	@Override
 	protected void handleObject(TheObject theObject){
 										
 		//count all the visiting objects
 		measurement.numbOfVisitedObjects++; 
 		
+		//writes a note into the Console
 		Statistics.show(this.getLabel() + " behandelt: " + theObject.getLabel());
 		
 		//the processing time of the object
@@ -196,7 +199,8 @@ public class ProcessStation extends Station {
 	
 	
 	/**
-	 * A (static) inner class for measurement jobs. The class records specific values of the station during the simulation.
+	 * A (static) inner class for measurement jobs. 
+	 * The class records specific values of the station during the simulation.
 	 * These values can be used for statistic evaluation.
 	 */
 	private static class Measurement {
@@ -207,7 +211,7 @@ public class ProcessStation extends Station {
 		/** the number of all objects that visited this station*/ 
 		private int numbOfVisitedObjects = 0;
 		
-		/** Value for the highest number of objects inside the stations inQueue  */
+		/** value for the highest number of objects inside the stations inQueue  */
 		private int inQueuePeek = 0;
 		
 		/**Get the average time for treatment
@@ -243,7 +247,7 @@ public class ProcessStation extends Station {
 		
 	/** Get all process stations
 	 * 
-	 * @return the allProcessStations
+	 * @return allProcessStations
 	 */
 	public static ArrayList<ProcessStation> getAllProcessStations() {
 		

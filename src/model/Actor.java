@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import controller.Simulation;
 
 /**
- * Superclass for all Actors
+ * Superclass for all Actors(Stations, Objects, Queues)
  * 
  * @author Jaeger, Schmidt
  * @version 2016-07-07
@@ -50,6 +50,7 @@ public abstract class Actor extends Thread {
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Thread#run()
+	 * starts the Thread
 	 */
 	@Override
 	public void run() {
@@ -59,12 +60,12 @@ public abstract class Actor extends Thread {
 					
 			try {
 							
-			//let the thread sleep for a little time
+			//let the thread sleep for a Clockbeat
 			//without that we've got a running problem 
 			Actor.sleep(Simulation.CLOCKBEAT);
-					
-				act(); 
 				
+			//Calls the act Method of the actor	
+				act(); 
 						
 			} catch (Exception e) {
 				e.printStackTrace();

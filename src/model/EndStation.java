@@ -64,10 +64,10 @@ public class EndStation extends SimpleStation {
 	protected void handleObject(TheObject theObject){
 				
 		
-			// the object chooses the outgoing queue and enter it
+			// the object chooses the outgoing queue and enters it
 			theObject.enterOutQueue(this);
 			
-			//  this is a just for fun action, the object gets a new location, but CAUTION !!!! magic numbers :-( !!!!!!
+			//  determining a new location for the object
 			theObject.theView.setLocation((this.getXPos() -100) + 18 * numberOfOutQueueObjects(), this.getYPos() + 120);
 					
 			//End the simulation if the condition is met
@@ -99,7 +99,7 @@ public class EndStation extends SimpleStation {
 		}
 														
 		// end simulation 
-		// System.exit(0); 
+		//System.exit(0); 
 												
 		}
 	}
