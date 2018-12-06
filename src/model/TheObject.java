@@ -1,25 +1,22 @@
 package model;
 
-import io.Statistics;
-
-import java.awt.Component;
-import java.util.ArrayList;
-
-import view.TheObjectView;
 import controller.Simulation;
-import java.util.Observable;
-import java.util.*;
+import io.Statistics;
+import view.TheObjectView;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Observable;
 /**
  * Class for the objects
- * 
+ *
  * @author Jaeger, Schmidt
  * @version 2016-07-08
  */
 
 final public class TheObject extends Actor {
-	
-	private static int  numbersOfObject = 16;
+	/** the quality of objects*/
+	private static int  numbersOfObjects = 16;
 
 	/** the view of the object */
 	public TheObjectView theView;
@@ -47,70 +44,28 @@ final public class TheObject extends Actor {
 	 * a stations queue
 	 */
 	private Station actualStation = null;
-	
+
+	/**
+	 * the next station where this object will be in, null if it's not in a station or
+	 * a stations queue
+	 */
 	private Station theNextStation = null;
 
 	/** the instance of our static inner Measurement class */
 	Measurement measurement = new Measurement();
 
+	/** create a object of the class TheObservable */
 	private TheObservable myObservable = new TheObservable();
 
+	/** create the getter method to get the variable myObservable*/
 	public TheObservable getTheObservable() {
 		return this.myObservable;
-	}
-
-	public class TheObservable extends Observable {
-		public TheObject theObject;
-		
-		public TheObject getObject() {
-			return this.theObject;
-		}
-		public void notifyObserver(Object info) {
-			setChanged();
-			super.notifyObservers(info);
-		}
-
-		public int setProcessTime(int newProcessTime) {
-			TheObject.this.processTime = newProcessTime;
-			notifyObserver(new Integer(newProcessTime));
-			return processTime;
-		}
-		
-		public int getProcessTime() {
-			return TheObject.this.processTime;
-		}
-
-		public Station setNextStation(String theStationLabel) {
-			// we are at the end of the list
-			if (TheObject.this.stationsToGo.size() < stationListPointer)
-				return null;
-
-			// get the label of the next station from the list and increase the list pointer
-			theStationLabel = TheObject.this.stationsToGo.get(stationListPointer++);
-
-			// looking for the matching station and return it
-			for (Station station : Station.getAllStations()) {
-
-				if (theStationLabel.equals(station.getLabel()))
-					notifyObserver(theStationLabel);
-					station = TheObject.this.theNextStation;
-					return station;
-					
-
-			}
-
-			return null; // the matching station isn't found
-		}
-		
-		public Station getNextStation() {
-			return TheObject.this.theNextStation;
-		}		
 	}
 
 	/**
 	 * (private!) Constructor, creates a new object model and send it to the start
 	 * station
-	 * 
+	 *
 	 * @param label        of the object
 	 * @param stationsToGo the stations to go
 	 * @param processtime  the processing time of the object, affects treatment by a
@@ -121,7 +76,7 @@ final public class TheObject extends Actor {
 	 * @param image        image of the object
 	 */
 	private TheObject(String label, ArrayList<String> stationsToGo, int processtime, int speed, int xPos, int yPos,
-			String image) {
+					  String image) {
 		super(label, xPos, yPos);
 
 		// create the view
@@ -138,8 +93,67 @@ final public class TheObject extends Actor {
 
 		// enter the in queue of the start station
 		this.enterInQueue(station);
+
+		//When man creates a object of the class TheObject, one another object of the class TheObservable is automatic created!
 		myObservable.theObject = this;
 
+	}
+
+	/** the inner class TheObservable of the class TheObject*/
+	public class TheObservable extends Observable {
+		//the Variable of the class TheObject
+		public TheObject theObject;
+
+		// the getter method to get the variable theObject
+		public TheObject getObject() {
+			return this.theObject;
+		}
+
+		//the method to activate the observer notifications
+		public void notifyObserver(Object info) {
+			setChanged();
+			super.notifyObservers(info);
+		}
+
+		// the setter method used to set a new process time
+		public int setProcessTime(int newProcessTime) {
+			TheObject.this.processTime = newProcessTime;
+			notifyObserver(new Integer(newProcessTime));
+			return processTime;
+		}
+
+		// the getter method used to get a new process time
+		public int getProcessTime() {
+			return TheObject.this.processTime;
+		}
+
+		// the setter method used to set a new next station
+		public Station setNextStation(String theStationLabel) {
+			// we are at the end of the list
+			if (TheObject.this.stationsToGo.size() < stationListPointer)
+				return null;
+
+			// get the label of the next station from the list and increase the list pointer
+			theStationLabel = TheObject.this.stationsToGo.get(stationListPointer++);
+
+			// looking for the matching station and return it
+			for (Station station : Station.getAllStations()) {
+
+				if (theStationLabel.equals(station.getLabel()))
+					notifyObserver(theStationLabel);
+				station = TheObject.this.theNextStation;
+				return station;
+
+
+			}
+
+			return null; // the matching station isn't found
+		}
+
+		// the getter method used to get a new next station
+		public Station getNextStation() {
+			return TheObject.this.theNextStation;
+		}
 	}
 
 	/**
@@ -155,17 +169,19 @@ final public class TheObject extends Actor {
 	 * @param image        image of the object
 	 */
 	public static void create(String label, ArrayList<String> stationsToGo, int processtime, int speed, int xPos,
-			int yPos, String image) throws ObjectLimitException {
-		if( numbersOfObject > 0) {
-		numbersOfObject =  numbersOfObject -1;
-		new TheObject(label, stationsToGo, processtime, speed, xPos, yPos, image);
+							  int yPos, String image) throws ObjectLimitException {
+
+		//create a quality of objects
+		if( numbersOfObjects > 0) {
+			numbersOfObjects =  numbersOfObjects -1;
+			new TheObject(label, stationsToGo, processtime, speed, xPos, yPos, image);
 		}
 		else throw new ObjectLimitException();
 	}
 
 	/**
 	 * Chose the next station to go to
-	 * 
+	 *
 	 * @return the next station or null if no station was found
 	 */
 	private Station getNextStation() {
@@ -190,9 +206,9 @@ final public class TheObject extends Actor {
 
 	/**
 	 * Chooses a suited incoming queue of the given station and enter it
-	 * 
+	 *
 	 * @param station the station from where the queue should be chosen
-	 * 
+	 *
 	 */
 	private void enterInQueue(Station station) {
 
@@ -203,8 +219,8 @@ final public class TheObject extends Actor {
 		if (inQueues.size() == 1)
 			inQueues.get(0).offer(this);
 
-		// Do we have more than one incoming queue?
-		// We have to make a decision which queue we choose -> your turn
+			// Do we have more than one incoming queue?
+			// We have to make a decision which queue we choose -> your turn
 		else {
 
 			// get the first queue and it's size
@@ -232,7 +248,7 @@ final public class TheObject extends Actor {
 
 	/**
 	 * Chooses a suited outgoing queue of the given station and enter it
-	 * 
+	 *
 	 * @param station the station from where the queue should be chosen
 	 */
 	void enterOutQueue(Station station) {
@@ -244,8 +260,8 @@ final public class TheObject extends Actor {
 		if (outQueues.size() == 1)
 			outQueues.get(0).offer(this);
 
-		// Do we have more than one outgoing queue?
-		// We have to make a decision which queue we choose -> your turn
+			// Do we have more than one outgoing queue?
+			// We have to make a decision which queue we choose -> your turn
 		else {
 
 			// get the first queue and it's size
@@ -339,7 +355,7 @@ final public class TheObject extends Actor {
 
 	/**
 	 * Print some statistics
-	 * 
+	 *
 	 */
 	public void printStatistics() {
 
@@ -352,7 +368,7 @@ final public class TheObject extends Actor {
 
 	/**
 	 * Get all objects
-	 * 
+	 *
 	 * @return a list of all objects
 	 */
 	public static ArrayList<TheObject> getAllObjects() {
@@ -361,7 +377,7 @@ final public class TheObject extends Actor {
 
 	/**
 	 * Get the actual station where this object is in
-	 * 
+	 *
 	 * @return the actual station where this object is in, null if it's not in a
 	 *         station or a stations queue
 	 */
@@ -371,7 +387,7 @@ final public class TheObject extends Actor {
 
 	/**
 	 * Get the objects processing time
-	 * 
+	 *
 	 * @return the processing time
 	 */
 	public int getProcessTime() {

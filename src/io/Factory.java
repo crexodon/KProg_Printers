@@ -1,44 +1,25 @@
 package io;
-import org.json.JSONObject;
-import org.json.XML;
-import view.*;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import model.EndStation;
-import model.ProcessStation;
-import model.StartStation;
-import model.SynchronizedQueue;
-import model.TheObject;
+import model.*;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import view.QueueViewJPanel;
+import view.QueueViewText;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is an abstract factory that creates instances
  * of actor types like objects, stations and their queues 
  * 
  * @author Jaeger, Schmidt
- * editted by Samuel Kauertz
  * @version 2017-10-29
  */
 public class Factory {
-
-
-
-
-	private static int switchCase = 2; // selects the used data type 1= xml 2= json
-
-	/** the Json data files */
-	private static String dataPath = "xml/";
-	private static String theObjectDataFileJson = dataPath + "objectExtrem.json";
-	private static String theStartStationDataFileJson = dataPath + "startstation.json";
-	private static String theStationDataFileJson = dataPath + "station.json";
-	private static String theEndStationDataFileJson = dataPath + "endstation.json";
 	
 	/** the objects XML data file */
 	private static String theObjectDataFile = "xml/object" +
@@ -57,82 +38,34 @@ public class Factory {
 	private static int XPOS_STARTSTATION;
 	
 	/** the y position of the starting station, also position for all starting objects */
-	private static int YPOS_STARTSTATION;
-
-
-	/**
-	 * converts json file into xml file and temporarily saves it
-	 * @param jsonFile the json data Path
-	 * @param whichOne part of data filename
-	 * @return xml String
-	 */
-	private static String jsonToXml ( String jsonFile, String whichOne )throws IOException{
-		String xmlDataPath = dataPath + "TEMP/" + whichOne + "TEMP.xml";
-
-		String jsonStr = new String(Files.readAllBytes(Paths.get(jsonFile)));
-		JSONObject jObjct = new JSONObject(jsonStr);
-
-		try (java.io.FileWriter fw = new java.io.FileWriter(xmlDataPath)){
-			fw.write(XML.toString(jObjct));}
-
-		return xmlDataPath;
-	}
-
-
-
+	private static int YPOS_STARTSTATION; 
+		
+	
 	/**
      * create the actors for the starting scenario
      * 
      */
-	public static void createStartScenario() {
-
+	public static void createStartScenario() throws ObjectLimitException{
+		
 		/*NOTE: The start station must be created first,
-		 * because the objects constructor puts the objects into the start stations outgoing queue
-		 */
-		switch(switchCase) {
-
-			case 1:
-
-				createStartStation(theStartStationDataFile);
-				createObjects(theObjectDataFile);
-				createProcessStations(theStationDataFile);
-				createEndStation(theEndStationDataFile);
-				break;
-
-			case 2:
-				try {
-					String start = "start";
-					String objects = "objects";
-					String process = "process";
-					String endstation = "end";
-					createStartStation(jsonToXml(theStartStationDataFileJson, start));
-					createObjects(jsonToXml(theObjectDataFileJson, objects));
-					createProcessStations(jsonToXml(theStationDataFileJson, process));
-					createEndStation(jsonToXml(theEndStationDataFileJson, endstation));
-
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				break;
-
-
-
-
-		}
-
-
+		* because the objects constructor puts the objects into the start stations outgoing queue
+		*/ 
+		createStartStation(); 
+		createObjects();
+		createProcessStations();
+		createEndStation();
 	}
 	
 	/**
      * create the start station
      * 
      */
-     private static void createStartStation(String dataFile){
+     private static void createStartStation(){
     	
     	try {
     		
     		//read the information from the XML file into a JDOM Document
-    		Document theXMLDoc = new SAXBuilder().build(dataFile);
+    		Document theXMLDoc = new SAXBuilder().build(theStartStationDataFile);
     		
     		//the <settings> ... </settings> node
     		Element root = theXMLDoc.getRootElement();
@@ -186,15 +119,15 @@ public class Factory {
      }
 	
 	/**
-     * create some objects out of the XML file
+     * create the objects determined within the XML file
      * 
      */
-     private static void createObjects(String dataFile){
+     private static void createObjects() throws ObjectLimitException{
     	
     	try {
 		
     		//read the information from the XML file into a JDOM Document
-    		Document theXMLDoc = new SAXBuilder().build(dataFile);
+    		Document theXMLDoc = new SAXBuilder().build(theObjectDataFile);
     		
     		//the <settings> ... </settings> node, this is the files root Element
     		Element root = theXMLDoc.getRootElement();
@@ -245,19 +178,21 @@ public class Factory {
 				e.printStackTrace();
 		} catch (IOException e) {
 				e.printStackTrace();
+		}catch (ObjectLimitException e){
+    		e.printStackTrace();
 		}
     }
     
     /**
-     * create some process stations out of the XML file
+     * create the process Stations determined within the XML file
      * 
      */
-     private static void createProcessStations(String dataFile){
+     private static void createProcessStations(){
     	
     	try {
     		
     		//read the information from the XML file into a JDOM Document
-    		Document theXMLDoc = new SAXBuilder().build(dataFile);
+    		Document theXMLDoc = new SAXBuilder().build(theStationDataFile);
     		
     		//the <settings> ... </settings> node
     		Element root = theXMLDoc.getRootElement();
@@ -338,12 +273,12 @@ public class Factory {
      * create the end station
      * 
      */
-     private static void createEndStation(String dataFile){
+     private static void createEndStation(){
     	
     	try {
     		
     		//read the information from the XML file into a JDOM Document
-    		Document theXMLDoc = new SAXBuilder().build(dataFile);
+    		Document theXMLDoc = new SAXBuilder().build(theEndStationDataFile);
     		
     		//the <settings> ... </settings> node
     		Element root = theXMLDoc.getRootElement();
@@ -353,7 +288,7 @@ public class Factory {
     		
     		//get label
     		String label = endStation.getChildText("label");
-
+    		    		    		
     		//position
     		int xPos = Integer.parseInt(endStation.getChildText("x_position"));
     		int yPos = Integer.parseInt(endStation.getChildText("y_position"));
@@ -395,6 +330,5 @@ public class Factory {
 				e.printStackTrace();
 		}
      }
-
-
+        
 }
