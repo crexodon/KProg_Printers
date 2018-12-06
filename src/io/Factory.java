@@ -1,17 +1,16 @@
 package io;
-import view.*;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import model.EndStation;
-import model.ProcessStation;
-import model.StartStation;
-import model.SynchronizedQueue;
-import model.TheObject;
+
+import model.*;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import view.QueueViewJPanel;
+import view.QueueViewText;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is an abstract factory that creates instances
@@ -46,7 +45,7 @@ public class Factory {
      * create the actors for the starting scenario
      * 
      */
-	public static void createStartScenario(){
+	public static void createStartScenario() throws ObjectLimitException{
 		
 		/*NOTE: The start station must be created first,
 		* because the objects constructor puts the objects into the start stations outgoing queue
@@ -123,7 +122,7 @@ public class Factory {
      * create the objects determined within the XML file
      * 
      */
-     private static void createObjects(){
+     private static void createObjects() throws ObjectLimitException{
     	
     	try {
 		
@@ -179,6 +178,8 @@ public class Factory {
 				e.printStackTrace();
 		} catch (IOException e) {
 				e.printStackTrace();
+		}catch (ObjectLimitException e){
+    		e.printStackTrace();
 		}
     }
     

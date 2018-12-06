@@ -1,0 +1,230 @@
+{
+  "settings": {
+    "object": [
+      {
+        "label": "Objekt_1",
+        "processtime": "16",
+        "speed": "4",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "FarbDrucker_1",
+            "End_Station"
+          ]
+        }
+      },
+      {
+        "label": "Objekt_2",
+        "processtime": "20",
+        "speed": "5",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "FarbDrucker_2",
+            "End_Station"
+          ]
+        }
+      },
+      {
+        "label": "Objekt_3",
+        "processtime": "11",
+        "speed": "2",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "FarbDrucker_2",
+            "End_Station"
+          ]
+        }
+      },
+      {
+        "label": "Objekt_4",
+        "processtime": "12",
+        "speed": "1",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "FarbDrucker_1",
+            "End_Station"
+          ]
+        }
+      },
+      {
+        "label": "Objekt_5",
+        "processtime": "10",
+        "speed": "5",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "SchwarzWeissDrucker",
+            "End_Station"
+          ]
+        }
+      },
+      {
+        "label": "Objekt_6",
+        "processtime": "16",
+        "speed": "10",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "FarbDrucker_1",
+            "End_Station"
+          ]
+        }
+      },
+      {
+        "label": "Objekt_7",
+        "processtime": "30",
+        "speed": "1",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "FarbDrucker_1",
+            "End_Station"
+          ]
+        }
+      },
+      {
+        "label": "Objekt_8",
+        "processtime": "17",
+        "speed": "3",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "FarbDrucker_2",
+            "End_Station"
+          ]
+        }
+      },
+      {
+        "label": "Objekt_9",
+        "processtime": "25",
+        "speed": "15",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "SchwarzWeissDrucker",
+            "End_Station"
+          ]
+        }
+      },
+      {
+        "label": "Objekt_10",
+        "processtime": "15",
+        "speed": "19",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "FarbDrucker_1",
+            "End_Station"
+          ]
+        }
+      },
+      {
+        "label": "Objekt_11",
+        "processtime": "11",
+        "speed": "5",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "End_Station"
+          ],
+          "stattion": "SchwarzWeissDrucker"
+        }
+      },
+      {
+        "label": "Objekt_12",
+        "processtime": "11",
+        "speed": "2",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "SchwarzWeissDrucker",
+            "End_Station"
+          ]
+        }
+      },
+      {
+        "label": "Objekt_13",
+        "processtime": "8",
+        "speed": "3",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "FarbDrucker_2",
+            "End_Station"
+          ]
+        }
+      },
+      {
+        "label": "Objekt_14",
+        "processtime": "8",
+        "speed": "5",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "SchwarzWeissDrucker",
+            "End_Station"
+          ]
+        }
+      },
+      {
+        "label": "Objekt_15",
+        "processtime": "19",
+        "speed": "1",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "SchwarzWeissDrucker",
+            "End_Station"
+          ]
+        }
+      },
+      {
+        "label": "Objekt_16",
+        "processtime": "10",
+        "speed": "6",
+        "view": { "image": "object_document.png" },
+        "sequence": {
+          "station": [
+            "Start_Station",
+            "Server",
+            "SchwarzWeissDrucker",
+            "End_Station"
+          ]
+        }
+      }
+    ]
+  }
+}
