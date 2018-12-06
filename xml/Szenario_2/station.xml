@@ -18,8 +18,8 @@
 		</outqueue>
 	</station>
 	<station>
-		<label>FarbDrucker</label>
-		<troughput>1</troughput>
+		<label>FarbDrucker_1</label>
+		<troughput>5</troughput>
 		<x_position>350</x_position>
 		<y_position>350</y_position>
 		<view>
@@ -35,8 +35,25 @@
 		</outqueue>
 	</station>
 	<station>
+		<label>FarbDrucker_2</label>
+		<troughput>5</troughput>
+		<x_position>500</x_position>
+		<y_position>350</y_position>
+		<view>
+			<image>printer_color.png</image>
+		</view>
+		<inqueue>
+			<x_position>480</x_position>
+			<y_position>290</y_position>
+		</inqueue>
+		<outqueue>
+			<x_position>520</x_position>
+			<y_position>450</y_position>
+		</outqueue>
+	</station>
+	<station>
 		<label>SchwarzWeissDrucker</label>
-		<troughput>1</troughput>
+		<troughput>5</troughput>
 		<x_position>500</x_position>
 		<y_position>150</y_position>
 		<view>
