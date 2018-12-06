@@ -10,10 +10,10 @@ import view.StatisticsView;
 /**
  * A class for printing statistics
  *
- * @author Jaeger, Schmidt
- * @version 2015-11-18
+ * @author Jaeger, Schmidt / Team 12
+ * @version 2018-12-06
  */
-public class Statistics extends Threadimplements Observer{
+public class Statistics extends Thread implements Observer{
 
 	private static String buffer;
   
@@ -50,7 +50,6 @@ public class Statistics extends Threadimplements Observer{
 	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
 		TheObservable TheObservable= (TheObservable) arg0;
 		Integer info = (Integer)arg1;
 		int newProcessTime = info.intValue();
