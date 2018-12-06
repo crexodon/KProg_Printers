@@ -1,6 +1,7 @@
 package model;
 
 import io.Statistics;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import controller.Simulation;
@@ -251,7 +252,6 @@ public class ProcessStation extends Station {
 		theString = theString + "\nDurchnittliche Behandlungsdauer: " + measurement.avgTreatmentTime();
 		theString = theString + "\nErfuhr einen Peek von: " + measurement.inQueuePeek;
 		Statistics.show(theString);
-
 	}
 
 	/**
@@ -275,18 +275,22 @@ public class ProcessStation extends Station {
 		return allProcessStations;
 	}
 
+	// getter of inUseTime
 	public int getInUseTime() {
 		return measurement.inUseTime;
 	}
 
+	// getter of number of Visitors
 	public int getNumberOfVisitedObjects() {
 		return measurement.numbOfVisitedObjects;
 	}
 
-	public int getinQueuePeek() {
+	// getter of InQueuePeek
+	public int getInQueuePeek() {
 		return measurement.inQueuePeek;
 	}
 
+	// getter of Average treatment time
 	public int getAvgTreatmentTime() {
 		return measurement.avgTreatmentTime();
 	}
