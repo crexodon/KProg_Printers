@@ -1,5 +1,6 @@
 package io;
 
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,20 +11,25 @@ import model.ProcessStation;
 import model.TheObject;
 import view.StatisticsView;
 
+import model.Station;
+import model.TheObject.TheObservable;
+import java.util.Observable;
+import java.util.Observer
+
+
 /**
  * A class for printing statistics
- * 
- * @author Jaeger, Schmidt
- * @version 2015-11-18
+ *
+ * @author Jaeger, Schmidt / Team 12
+ * @version 2018-12-06
  */
-public class Statistics extends Thread {
+public class Statistics extends Thread implements Observer {
 
 	private static String buffer;
 
 	private static StatisticsView statView;
 
-	/**
-	 * appends the given String to the buffer
+	/** appends the given String to the buffer
 	 *
 	 * @param message the message to append
 	 */
@@ -32,8 +38,8 @@ public class Statistics extends Thread {
 		buffer = buffer + message + "\n";
 	}
 
-	/**
-	 * writes the given String to console
+
+	/** writes the given String to console
 	 *
 	 * @param message the message to write to console
 	 */
@@ -41,6 +47,7 @@ public class Statistics extends Thread {
 
 		System.out.println(message);
 	}
+
 
 	/**
 	 * Builds an Array filled with all the Statistics of Stations and Objects
@@ -52,7 +59,7 @@ public class Statistics extends Thread {
 		ArrayList<TheObject> allObjects = TheObject.getAllObjects();
 		ArrayList<String> allMessages = new ArrayList<String>();
 
-		// empty String to get a line since \n doesn´t work
+		// empty String to get a line since \n doesnï¿½t work
 		String empty = " ";
 
 		// Iterate through all Stations
@@ -135,5 +142,35 @@ public class Statistics extends Thread {
 			statView.updateFrame();
 		}
 	}
+  
+  //useful: check new process time
+	public boolean isNewProcessTime(int newProcessTime) {
+		return true;
+	}
 
+	//useful: check the new next station
+	public boolean newTheNextStation(Station newNextStation) {
+		return true;
+	}
+  
+  /** reaction to notification
+	 * @param o the observed object, here: a object or also a TheObservable
+	 * @param p some information the object (TheObservable) sent along
+	 */
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		TheObservable TheObservable= (TheObservable) arg0;
+		Integer info = (Integer)arg1;
+		int newProcessTime = info.intValue();
+		// recognize the situation
+		if(isNewProcessTime(TheObservable.getProcessTime())){
+			System.out.println(TheObservable.getObject()+"has  the new process time"+newProcessTime);
+			TheObservable.deleteObservers();
+		}
+		else if(newTheNextStation(TheObservable.getNextStation())) {
+			System.out.println(TheObservable.getObject() +"has a new next station"+TheObservable.getNextStation());
+			TheObservable.deleteObservers();
+		}
+	}
 }
