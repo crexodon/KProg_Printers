@@ -120,7 +120,7 @@ public class StatisticsView extends JFrame {
 					objectCounter = objectCounter + station.getNumberOfVisitedObjects();
 					handleTimeAll = handleTimeAll + station.getInUseTime();
 					avgHandlingTime = avgHandlingTime + station.getAvgTreatmentTime();
-					peek = peek + station.getinQueuePeek();
+					peek = peek + station.getInQueuePeek();
 				}
 			}
 
@@ -165,7 +165,7 @@ public class StatisticsView extends JFrame {
 				if (station.getLabel() == this.label) {
 					// Call updateLabel()
 					updateLabels(allLabel, station.getLabel(), station.getNumberOfVisitedObjects(),
-							station.getInUseTime(), station.getAvgTreatmentTime(), station.getinQueuePeek());
+							station.getInUseTime(), station.getAvgTreatmentTime(), station.getInQueuePeek());
 				}
 			}
 		}
