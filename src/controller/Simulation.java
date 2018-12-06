@@ -1,10 +1,12 @@
 package controller;
 
-import view.SimulationView;
 import io.Factory;
 import io.Statistics;
-import java.util.concurrent.atomic.AtomicLong;
 import model.Actor;
+import model.ObjectLimitException;
+import view.SimulationView;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * The main class it controls the flow of the simulation
@@ -33,7 +35,7 @@ public class Simulation {
 	 * 
 	 * @param args
 	 */
-	public static void main(String[] args){
+	public static void main(String[] args) throws ObjectLimitException{
 		
 		//a new simulation
 		Simulation theSimulation = new Simulation();
@@ -45,7 +47,7 @@ public class Simulation {
 	 * initialize the simulation
 	 * 
 	 */
-	private void init(){
+	private void init() throws ObjectLimitException{
 		
 		//create all stations and objects for the starting scenario out of XML
 		Factory.createStartScenario();

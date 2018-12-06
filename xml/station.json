@@ -1,0 +1,78 @@
+{
+  "settings": {
+    "station": [
+      {
+        "label": "Server",
+        "troughput": "100",
+        "x_position": "200",
+        "y_position": "100",
+        "view": { "image": "server.png" },
+        "inqueue": {
+          "x_position": "180",
+          "y_position": "40"
+        },
+        "outqueue": {
+          "x_position": "220",
+          "y_position": "200"
+        }
+      },
+      {
+        "label": "FarbDrucker_1",
+        "troughput": "1",
+        "x_position": "350",
+        "y_position": "350",
+        "view": { "image": "printer_color.png" },
+        "inqueue": [
+          {
+            "x_position": "330",
+            "y_position": "290"
+          },
+          {
+            "x_position": "370",
+            "y_position": "290"
+          }
+        ],
+        "outqueue": {
+          "x_position": "370",
+          "y_position": "450"
+        }
+      },
+      {
+        "label": "FarbDrucker_2",
+        "troughput": "1",
+        "x_position": "500",
+        "y_position": "350",
+        "view": { "image": "printer_color.png" },
+        "inqueue": [
+          {
+            "x_position": "480",
+            "y_position": "290"
+          },
+          {
+            "x_position": "520",
+            "y_position": "290"
+          }
+        ],
+        "outqueue": {
+          "x_position": "520",
+          "y_position": "450"
+        }
+      },
+      {
+        "label": "SchwarzWeissDrucker",
+        "troughput": "1",
+        "x_position": "500",
+        "y_position": "150",
+        "view": { "image": "printer_bw.png" },
+        "inqueue": {
+          "x_position": "480",
+          "y_position": "90"
+        },
+        "outqueue": {
+          "x_position": "520",
+          "y_position": "250"
+        }
+      }
+    ]
+  }
+}
